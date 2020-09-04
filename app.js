@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 4002;
 
 //get random filmmaker
 app.get('/api/filmmakers/random', (req, res) => {
+  console.log('received request for random filmmaker')
   res.send({
     filmmaker: getRandomElement(filmmakers)
   })
@@ -16,10 +17,10 @@ app.get('/api/filmmakers/random', (req, res) => {
 
 //get all filmmakers or a filmmaker's films
 app.get('/api/filmmakers', (req, res, next) => {
-  console.log('received get request');
-  if (req.query.filmmaker !== undefined) {
-    const filmmakerFilms = filmmakers.filter(filmmaker => filmmaker.films === req.query.filmmaker);
-    res.send({ filmmakers: filmmakerFilms})
+  if (req.query.filmmakers !== undefined) {
+    console.log('received request!!');
+    const filmmaker = filmmakers.filter(filmmaker => filmmaker.filmmaker === req.query.filmmaker);
+    res.send({ filmmakers: filmmaker})
   } else {
     res.send({
       filmmakers: filmmakers

@@ -34,16 +34,13 @@ const renderFilmmakers = (filmmakers = []) => {
 fetchAllButton.addEventListener('click', () => {
   fetch('/api/filmmakers')
   .then(response => {
-    console.log(response);
     if (response.ok) {
       return response.json()
     } else {
-      console.log('error!!!')
       renderError(response);
     }
   })
   .then(response => {
-    console.log(response);
     renderFilmmakers(response.filmmakers);
   });
 });
@@ -58,21 +55,23 @@ fetchRandomButton.addEventListener('click', () => {
     }
   })
   .then(response => {
-    renderFilmmakers([response.filmmakers]);
+    renderFilmmakers([response.filmmaker]);
   });
 });
 
 fetchByFilmmakerButton.addEventListener('click', () => {
-  const filmmaker = document.getElementById('author').value;
+  const filmmaker = document.getElementById('filmmaker').value;
   fetch(`/api/filmmakers?filmmaker=${filmmaker}`)
   .then(response => {
     if (response.ok) {
+      console.log('response OK');
       return response.json();
     } else {
       renderError(response);
     }
   })
   .then(response => {
-    renderFilmmakers(response.filmmakers);
+    console.log(response)
+    renderFilmmakers(response.filmmaker);
   });
 });
